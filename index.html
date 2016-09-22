@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>备忘录</title>
+    <script src="node_modules/angular/angular.min.js"></script>
+    <link rel="stylesheet" href="node_modules/bootstrap/less/css/bootstrap.css">
+    <link rel="stylesheet" href="css/to_do_list.css">
+    <link rel="stylesheet" href="css/public.css">
+    <link rel="stylesheet" href="icon/iconfont.css">
+</head >
+<body ng-app=myapp>
+<div style="height:100%" ng-controller="todo">
+<div class="container-fluid box">
+    <div class="row">
+        <div class="left col-xs-4 col-sm-3">
+            <div class="header">
+                <h3>iCloud</h3>
+                <h4>提醒事项</h4>
+                <span class="icon-add iconfont" ng-click="addList()"></span>
+            </div>
+            <div class="comp" ng-click="flag=false">
+                已完成 <span>{{success.length}}</span>
+            </div>
+            <div class="list">
+                <div class="clock iconfont icon-clock"></div>
+                <div class="plan">计划列表</div>
+            </div>
+            <div class="plan-list" ng-repeat="item in data | filter:search track by item.id">
+                <div class="listcon">
+                    <div class="color"></div>
+                    <input type="text" ng-model="item.title" ng-blur="blur(item.id)" ng-focus="focus(item.id)">
+                    <span class="remove icon-huishou iconfont" ng-click="removeList(item.id)"></span>
+                </div>
+            </div>
+        </div>
+        <div class="right col-xs-8 col-sm-9">
+            <div class="seo">
+                <span class="iconfont icon-famg"></span>
+                <input type="text" placeholder="搜索相关计划" ng-model="search">
+            </div>
+            <div ng-show="flag">
+                <div class="newlist">
+                    <p>{{currentCon.title}}</p>
+                    <span class="icon-jia iconfont" ng-click="addCon()"></span>
+                </div>
+                <div class="listcon" ng-repeat="item in currentCon.son track by item.id">
+                    <div class="newlistcon">
+                        <span class="iconfont icon-yuan yuan" ng-click="done(item.id)"></span>
+                        <input type="text" ng-model="item.title" ng-blur="conBlur(item.id)">
+                        <span class="iconfont icon-huishou huishou" ng-click="removeCon(item.id)"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="flag==false">
+                <div class="newlist">
+                    <p>已完成</p>
+                </div>
+                <div class="listcon" ng-repeat="item in success track by item.id">
+                    <div class="newlistcon">
+                        <span class="wenzi">{{item.title}}</span>
+                        <span class="iconfont icon-huishou huishou img" ng-click="removedone(item.id)"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<script src="js/to_do_list.js"></script>
+</html>
